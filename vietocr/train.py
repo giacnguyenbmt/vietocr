@@ -11,11 +11,11 @@ def main():
     args = parser.parse_args()
     config = Cfg.load_config_from_file(args.config)
 
-    #
-    print(config)
+    # #
+    # print(config)
 
-    while True:
-        pass
+    # while True:
+    #     pass
     #
 
     trainer = Trainer(config)
