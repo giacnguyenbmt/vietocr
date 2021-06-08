@@ -25,14 +25,14 @@ class Cfg(dict):
         base_config.update(config)
 
         #
-        print(base_config)
+        # print(base_config)
 
-        print('====================')
+        # print('====================')
 
-        print(Cfg(base_config))
+        # print(Cfg(base_config))
 
-        while True:
-            pass
+        # while True:
+        #     pass
         #
 
         return Cfg(base_config)
