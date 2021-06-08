@@ -24,6 +24,17 @@ class Cfg(dict):
             config = yaml.safe_load(f)
         base_config.update(config)
 
+        #
+        print(base_config)
+
+        print('====================')
+
+        print(Cfg(base_config))
+
+        while True:
+            pass
+        #
+
         return Cfg(base_config)
 
     @staticmethod
