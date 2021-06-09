@@ -19,7 +19,10 @@ def main():
     #     pass
     #
 
-    trainer = Trainer(config)
+    if args.pretrained == "False":
+        trainer = Trainer(config, pretrained=False)
+    else:
+        trainer = Trainer(config)
 
     if args.checkpoint:
         trainer.load_checkpoint(args.checkpoint)
