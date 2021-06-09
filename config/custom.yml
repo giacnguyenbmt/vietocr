@@ -33,7 +33,7 @@ trainer:
 
 dataset:    
     # name of your dataset
-    name: hw
+    name: data_combine
     # path to annotation and image
     data_root: ./data_line/
     train_annotation: train_line_annotation.txt
