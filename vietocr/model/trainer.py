@@ -56,6 +56,7 @@ class Trainer():
             self.logger = Logger(logger) 
 
         if pretrained:
+            print('URL:', config['pretrain'])
             weight_file = download_weights(**config['pretrain'], quiet=config['quiet'])
             self.load_weights(weight_file)
 

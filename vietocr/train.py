@@ -22,9 +22,8 @@ def main():
     trainer = Trainer(config)
 
     if args.checkpoint:
-        print("Trong===============")
         trainer.load_checkpoint(args.checkpoint)
-    print("Ngoai===============")
+    
     #
     while True:
         pass
