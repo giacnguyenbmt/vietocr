@@ -29,8 +29,8 @@ def main():
         trainer.load_checkpoint(args.checkpoint)
     
     #
-    while True:
-        pass
+    # while True:
+    #     pass
     #
     trainer.train()
 
