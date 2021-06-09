@@ -141,7 +141,13 @@ class Trainer():
         total_loss = []
         
         with torch.no_grad():
+            #
+            start_total_time = time.time()
+            #
             for step, batch in enumerate(self.valid_gen):
+                #
+                start_time = time.time()
+                #
                 batch = self.batch_to_device(batch)
                 img, tgt_input, tgt_output, tgt_padding_mask = batch['img'], batch['tgt_input'], batch['tgt_output'], batch['tgt_padding_mask']
 
@@ -156,6 +162,16 @@ class Trainer():
                 
                 del outputs
                 del loss
+
+                #
+                if step % 10 == 0:
+                    batch_time = time.time() - start_time
+                    print('step: {}, time: {}'.format(step, batch_time))
+                #
+            #
+            print('Total eval time:', time.time() - start_total_time)
+            #
+
 
         total_loss = np.mean(total_loss)
         self.model.train()
