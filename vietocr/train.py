@@ -20,6 +20,7 @@ def main():
     #
 
     if args.pretrained == "False":
+        print("Using pretrained {args.config}: {args.pretrained}")
         trainer = Trainer(config, pretrained=False)
     else:
         trainer = Trainer(config)
