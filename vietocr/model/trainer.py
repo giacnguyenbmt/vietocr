@@ -123,8 +123,28 @@ class Trainer():
                 self.logger.log(info)
 
             if self.valid_annotation and self.iter % self.valid_every == 0:
+                #
+                print("start valid after iter: {:06d} at {}".format(
+                    time.asctime(time.localtime(time.time())))
+                    )
+                #
                 val_loss = self.validate()
+                #
+                print("Finished valid after iter: {:06d} at {}".format(time.asctime(
+                    time.localtime(time.time())))
+                    )
+                #
+                #
+                print("start metrics after iter: {:06d} at {}".format(
+                    time.asctime(time.localtime(time.time())))
+                    )
+                #
                 acc_full_seq, acc_per_char = self.precision(self.metrics)
+                #
+                print("start metrics after iter: {:06d} at {}".format(
+                    time.asctime(time.localtime(time.time())))
+                    )
+                #
 
                 info = 'iter: {:06d} - valid loss: {:.3f} - acc full seq: {:.4f} - acc per char: {:.4f}'.format(self.iter, val_loss, acc_full_seq, acc_per_char)
                 print(info)
@@ -164,7 +184,7 @@ class Trainer():
                 del loss
 
                 #
-                if step % 10 == 0:
+                if step % 500 == 0:
                     batch_time = time.time() - start_time
                     print('step: {}, time: {}'.format(step, batch_time))
                 #
