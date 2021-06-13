@@ -124,27 +124,34 @@ class Trainer():
 
             if self.valid_annotation and self.iter % self.valid_every == 0:
                 #
-                print("start valid after iter: {:06d} at {}".format(
+                info = "start valid after iter: {:06d} at {}".format(
                     time.asctime(time.localtime(time.time())))
-                    )
-                #
+                print(info)
+                self.logger.log(info)
+                #/
                 val_loss = self.validate()
                 #
-                print("Finished valid after iter: {:06d} at {}".format(time.asctime(
-                    time.localtime(time.time())))
-                    )
+                info = "Finished valid after iter: {:06d} at {}".format(time.asctime(
+                    time.localtime(time.time()))))
+                print(info)
+                self.logger.log(info)
+                #/
+
+
                 #
-                #
-                print("start metrics after iter: {:06d} at {}".format(
+                info = "start metrics after iter: {:06d} at {}".format(
                     time.asctime(time.localtime(time.time())))
-                    )
-                #
+                print(info)
+                self.logger.log(info)
+                #/
                 acc_full_seq, acc_per_char = self.precision(self.metrics)
                 #
-                print("start metrics after iter: {:06d} at {}".format(
+                info = "start metrics after iter: {:06d} at {}".format(
                     time.asctime(time.localtime(time.time())))
-                    )
-                #
+                print(info)
+                self.logger.log(info)
+                #/
+
 
                 info = 'iter: {:06d} - valid loss: {:.3f} - acc full seq: {:.4f} - acc per char: {:.4f}'.format(self.iter, val_loss, acc_full_seq, acc_per_char)
                 print(info)
@@ -163,34 +170,46 @@ class Trainer():
         with torch.no_grad():
             #
             start_total_time = time.time()
-            #
+            iter = 1
+            #/
+
             for step, batch in enumerate(self.valid_gen):
                 #
-                start_time = time.time()
-                #
-                batch = self.batch_to_device(batch)
-                img, tgt_input, tgt_output, tgt_padding_mask = batch['img'], batch['tgt_input'], batch['tgt_output'], batch['tgt_padding_mask']
+                if step % 250 == 0:
+                    start_time = time.time()
+                    #/
 
-                outputs = self.model(img, tgt_input, tgt_padding_mask)
-#                loss = self.criterion(rearrange(outputs, 'b t v -> (b t) v'), rearrange(tgt_output, 'b o -> (b o)'))
-               
-                outputs = outputs.flatten(0,1)
-                tgt_output = tgt_output.flatten()
-                loss = self.criterion(outputs, tgt_output)
+                    batch = self.batch_to_device(batch)
+                    img, tgt_input, tgt_output, tgt_padding_mask = batch['img'], batch['tgt_input'], batch['tgt_output'], batch['tgt_padding_mask']
 
-                total_loss.append(loss.item())
+                    outputs = self.model(img, tgt_input, tgt_padding_mask)
+    #                loss = self.criterion(rearrange(outputs, 'b t v -> (b t) v'), rearrange(tgt_output, 'b o -> (b o)'))
                 
-                del outputs
-                del loss
+                    outputs = outputs.flatten(0,1)
+                    tgt_output = tgt_output.flatten()
+                    loss = self.criterion(outputs, tgt_output)
 
-                #
-                if step % 500 == 0:
-                    batch_time = time.time() - start_time
-                    print('step: {}, time: {}'.format(step, batch_time))
-                #
+                    total_loss.append(loss.item())
+                    
+                    del outputs
+                    del loss
+
+                    #
+                    if iter % 100 == 0:
+                        batch_time = time.time() - start_time
+
+                        info = 'step: {}, time: {}'.format(step, batch_time)
+                        print(info)
+                        self.logger.log(info)
+
+                    iter += 1
+                    #/
+                    
             #
-            print('Total eval time:', time.time() - start_total_time)
-            #
+            info = 'Total eval time:', time.time() - start_total_time
+            print(info)
+            self.logger.log(info)
+            #/
 
 
         total_loss = np.mean(total_loss)
