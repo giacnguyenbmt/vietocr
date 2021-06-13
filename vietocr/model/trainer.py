@@ -124,14 +124,14 @@ class Trainer():
 
             if self.valid_annotation and self.iter % self.valid_every == 0:
                 #
-                info = "start valid after iter: {:06d} at {}".format(
+                info = "start valid after iter: {:06d} at {}".format(self.iter,
                     time.asctime(time.localtime(time.time())))
                 print(info)
                 self.logger.log(info)
                 #/
                 val_loss = self.validate()
                 #
-                info = "Finished valid after iter: {:06d} at {}".format(
+                info = "Finished valid after iter: {:06d} at {}".format(self.iter,
                     time.asctime(time.localtime(time.time())))
                 print(info)
                 self.logger.log(info)
@@ -139,14 +139,14 @@ class Trainer():
 
 
                 #
-                info = "start metrics after iter: {:06d} at {}".format(
+                info = "start metrics after iter: {:06d} at {}".format(self.iter,
                     time.asctime(time.localtime(time.time())))
                 print(info)
                 self.logger.log(info)
                 #/
                 acc_full_seq, acc_per_char = self.precision(self.metrics)
                 #
-                info = "start metrics after iter: {:06d} at {}".format(
+                info = "start metrics after iter: {:06d} at {}".format(self.iter,
                     time.asctime(time.localtime(time.time())))
                 print(info)
                 self.logger.log(info)
@@ -206,7 +206,7 @@ class Trainer():
                     #/
 
             #
-            info = 'Total eval time:', time.time() - start_total_time
+            info = 'Total eval time: {}'.format(time.time() - start_total_time)
             print(info)
             self.logger.log(info)
             #/
