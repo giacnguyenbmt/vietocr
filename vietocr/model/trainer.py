@@ -131,8 +131,8 @@ class Trainer():
                 #/
                 val_loss = self.validate()
                 #
-                info = "Finished valid after iter: {:06d} at {}".format(time.asctime(
-                    time.localtime(time.time()))))
+                info = "Finished valid after iter: {:06d} at {}".format(
+                    time.asctime(time.localtime(time.time())))
                 print(info)
                 self.logger.log(info)
                 #/
@@ -204,7 +204,7 @@ class Trainer():
 
                     iter += 1
                     #/
-                    
+
             #
             info = 'Total eval time:', time.time() - start_total_time
             print(info)
