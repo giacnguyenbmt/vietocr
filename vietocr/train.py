@@ -19,14 +19,14 @@ def main():
     else:
         trainer = Trainer(config)
 
-    if args.checkpoint:
-        trainer.load_checkpoint(args.checkpoint)
+    # if args.checkpoint:
+    #     trainer.load_checkpoint(args.checkpoint)
     
     # using for freeze code 
     # while True:
     #     pass
-    #
-    trainer.train()
+
+    # trainer.train()
 
 if __name__ == '__main__':
     main()

@@ -75,11 +75,12 @@ class Trainer():
         if self.image_aug:
             transforms =  augmentor
 
-        self.train_gen = self.data_gen('train_{}'.format(self.dataset_name), 
-                self.data_root, self.train_annotation, self.masked_language_model, transform=transforms)
         if self.valid_annotation:
             self.valid_gen = self.data_gen('valid_{}'.format(self.dataset_name), 
                     self.data_root, self.valid_annotation, masked_language_model=False)
+                    
+        self.train_gen = self.data_gen('train_{}'.format(self.dataset_name), 
+                self.data_root, self.train_annotation, self.masked_language_model, transform=transforms)
 
         self.train_losses = []
         
@@ -123,39 +124,9 @@ class Trainer():
                 self.logger.log(info)
 
             if self.valid_annotation and self.iter % self.valid_every == 0:
-                #
-                info = "start valid after iter: {:06d} at {}".format(self.iter,
-                    time.asctime(time.localtime(time.time()))
-                    )
-                print(info)
-                self.logger.log(info)
-                #/
                 val_loss = self.validate()
-                #
-                info = "Finished valid after iter: {:06d} at {}".format(self.iter,
-                    time.asctime(time.localtime(time.time()))
-                    )
-                print(info)
-                self.logger.log(info)
-                #/
 
-
-                #
-                info = "start metrics after iter: {:06d} at {}".format(self.iter,
-                    time.asctime(time.localtime(time.time()))
-                    )
-                print(info)
-                self.logger.log(info)
-                #/
                 acc_full_seq, acc_per_char = self.precision(self.metrics)
-                #
-                info = "start metrics after iter: {:06d} at {}".format(self.iter,
-                    time.asctime(time.localtime(time.time()))
-                    )
-                print(info)
-                self.logger.log(info)
-                #/
-
 
                 info = 'iter: {:06d} - valid loss: {:.3f} - acc full seq: {:.4f} - acc per char: {:.4f}'.format(self.iter, val_loss, acc_full_seq, acc_per_char)
                 print(info)
@@ -172,16 +143,8 @@ class Trainer():
         total_loss = []
         
         with torch.no_grad():
-            #
-            start_total_time = time.time()
-            iter = 1
-            #/
 
             for step, batch in enumerate(self.valid_gen):
-                #
-                if step % 250 == 0:
-                    start_time = time.time()
-                    #/
 
                     batch = self.batch_to_device(batch)
                     img, tgt_input, tgt_output, tgt_padding_mask = batch['img'], batch['tgt_input'], batch['tgt_output'], batch['tgt_padding_mask']
@@ -197,23 +160,6 @@ class Trainer():
                     
                     del outputs
                     del loss
-
-                    #
-                    if iter % 100 == 0:
-                        batch_time = time.time() - start_time
-
-                        info = 'step: {}, time: {}'.format(step, batch_time)
-                        print(info)
-                        self.logger.log(info)
-
-                    iter += 1
-                    #/
-
-            #
-            info = 'Total eval time: {}'.format(time.time() - start_total_time)
-            print(info)
-            self.logger.log(info)
-            #/
 
 
         total_loss = np.mean(total_loss)

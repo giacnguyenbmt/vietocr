@@ -14,11 +14,6 @@ vocab: " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcde
   \u1EE3\u1EE4\u1EE5\u1EE6\u1EE7\u1EE8\u1EE9\u1EEA\u1EEB\u1EEC\u1EED\u1EEE\u1EEF\u1EF0\
   \u1EF1\u1EF2\u1EF3\u1EF4\u1EF5\u1EF6\u1EF7\u1EF8\u1EF9\u2013\u2014\u2019\u201C\u201D\
   \u2026\u20AC\u2122\u2212"
-# VA
-# vocab: 
-# Custom
-# vocab: 'aAàÀảẢãÃáÁạẠăĂằẰẳẲẵẴắẮặẶâÂầẦẩẨẫẪấẤậẬbBcCdDđĐeEèÈẻẺẽẼéÉẹẸêÊềỀểỂễỄếẾệỆfFgGhHiIìÌỉỈĩĨíÍịỊjJkKlLmMnNoOòÒỏỎõÕóÓọỌôÔồỒổỔỗỖốỐộỘơƠờỜởỞỡỠớỚợỢpPqQrRsStTuUùÙủỦũŨúÚụỤưƯừỪửỬữỮứỨựỰvVwWxXyYỳỲỷỶỹỸýÝỵỴzZ0123456789!"#$%&''()*+,-./:;<=>?@[\]^_`{|}~ '
-
 
 
 # cpu, cuda, cuda:0
@@ -41,8 +36,6 @@ optimizer:
 
 trainer:
     batch_size: 32
-    # print_every: 200
-    # valid_every: 4000
     print_every: 200
     valid_every: 200
     iters: 20000
@@ -56,11 +49,11 @@ trainer:
 
 dataset:    
     # name of your dataset
-    name: data_combine
+    name: data_12m
     # path to annotation and image
-    data_root: ./data_line/
-    train_annotation: train_line_annotation.txt
-    valid_annotation: test_line_annotation.txt
+    data_root: /mlcv/
+    train_annotation: /mlcv/WorkingSpace/SceneText/nguyenpdg/source/data_split/split_datacombine/train.txt
+    valid_annotation: /mlcv/WorkingSpace/SceneText/nguyenpdg/source/data_split/split_datacombine/valid.txt
     # resize image to 32 height, larger height will increase accuracy
     image_height: 32
     image_min_width: 32
